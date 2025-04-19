@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Car Gallery</title>
+    <style>
+        /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 1rem 0;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto; /* Enables vertical scrolling */
+}
+
+.gallery-item {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.gallery-item p {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.buy-now {
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.buy-now:hover {
+    background-color: #555;
+}
+
+/* Modal Style */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    cursor: pointer;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    width: 100%;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Cars Gallery</h1>
+    </header>
+
+    <section class="gallery">
+        <!-- 12 Car Gallery Items -->
+        <div class="gallery-item">
+            <img src="images/Ferrari.jpeg" alt="Ferrari">
+            <p>Ferrari</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Lamborghini.jpeg" alt="Lamborghini">
+            <p>Lamborghini</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Bugatti.jpeg" alt="Bugatti">
+            <p>Bugatti</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Porsche.jpeg" alt="Porsche">
+            <p>Porsche</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Tesla.jpeg" alt="Tesla">
+            <p>Tesla</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/BMW.webp" alt="BMW">
+            <p>BMW</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Audi.jpeg" alt="Audi">
+            <p>Audi</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Mercedes-Benz.jpeg" alt="Mercedes-Benz">
+            <p>Mercedes-Benz</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Rolls Royce.jpeg" alt="Rolls Royce">
+            <p>Rolls Royce</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/McLaren.jpeg" alt="McLaren">
+            <p>McLaren</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Jaguar.jpeg" alt="Jaguar">
+            <p>Jaguar</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+        <div class="gallery-item">
+            <img src="images/Aston Martin.jpeg" alt="Aston Martin">
+            <p>Aston Martin</p>
+            <a href="booknow.html"><button class="buy-now">Buy Now</button></a>
+        </div>
+    </section>
+
+    
+
+</body>
+</html>

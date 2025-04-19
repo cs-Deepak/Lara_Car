@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Awesome Car Buy & Rent</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background:rgb(163, 160, 160)
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+}
+
+.form-container {
+    /* border: solid 2px #414143b3; */
+    background-color: #414143;
+    /* background: transparent; */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow:30px;
+}
+
+
+
+
+.logo img{
+   margin-top: -30px; 
+   margin-left: 130px;
+}
+
+
+ h2 {
+    background-color: #FE6821;
+    /* border: solid 1px black; */
+    text-align: center;
+    height: 38px;
+    text-align: center;
+    /* margin-bottom: 20px; */
+    border-radius: 10px;
+    padding-top: 10px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 5px;
+    background-color: white;
+    margin-bottom: 20px;
+    border-radius: 30px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0;
+    height: 100%;
+    background-color: #FE6821;
+    transition: width 0.3s ease;
+}
+
+.step {
+    margin-right: 20px;
+    display: none;
+}
+
+.step.active {
+    display: block;
+}
+
+input, select {
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ddddddad;
+    border-radius: 10px;
+    font-size: 16px;
+    background : transparent;
+    outline: none;
+    color: white;
+    padding-left: 10px;
+}
+ select option {
+    color: black;
+ }
+
+ textarea {
+    background-color: transparent;
+    border: 2px solid #ddddddad;
+    color: #ddddddad;
+    border-radius: 6px;
+ }
+
+ textarea::placeholder {
+    color: #fdf9f9;
+    padding: 4px;
+ }
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.656);
+    padding-left: 10px;
+}
+
+button {
+    background-color: #FE6821;
+    color: rgb(0, 0, 0);
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+button:hover {
+    background-color: #fc8249;
+    transform: translateY(-2px);
+}
+
+#prevBtn {
+    background-color: #3c3a39;
+    color: rgb(163, 163, 163);
+}
+
+#prevBtn:hover {
+    background-color: rgb(117, 112, 112);
+}
+
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+#paymentOptions { 
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.payment-option {
+    background-color: #fdf9f9;
+    flex: 1 0 calc(50% - 5px);
+    max-width: calc(24% - 5px);
+}
+.payment-option img{
+    margin-right: 30px;
+}
+
+#paymentDetails {
+    margin-top: 15px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(247, 242, 242, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup {
+    background-color: white;
+    padding: 20px;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 10px 10px black;
+}
+
+@media (max-width: 600px) {
+    .logo img{
+      margin-top: -30px; 
+      margin-left: 80px;
+}
+    .container {
+        padding: 10px;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .payment-option {
+        flex: 1 0 100%;
+        max-width: 100%;
+    }
+    #paymentOptions { 
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    margin-right: 20px;
+}
+
+.payment-option {
+    background-color: #fdf9f9;
+    flex: 1 0 calc(50% - 5px);
+    max-width: calc(24% - 5px);
+}
+.payment-option img{
+    width: 40px;
+    height: 30px;
+    
+    
+    
+}
+
+#paymentDetails {
+    margin-top: 15px;
+}
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="logo">
+                <img src="images/CARLOGO.gif" height="160px" width="200px"  alt="">
+            </div>
+           
+            <div class="progress-bar">
+                <div class="progress"></div>
+            </div>
+            <form action="booking.php" method="post" id="registrationForm">
+                <div class="step" id="step1">
+                    <h2>Personal Information</h2>
+                    <input type="name" name="name" id="name" placeholder="Full Name" required>
+                    <input type="email" name="email" id="email" placeholder="Email" required>
+                    <input type="tel" name="tel" id="phone" placeholder="Phone Number" required>
+                    <input type="text" name="text" id="text" placeholder="Your Address" required>
+                </div>
+                <div class="step" id="step2">
+                    <h2>Car Selection</h2>
+                    <select name="Choose" id="carType" required style="width: 100%; border: 2px solid #ddddddad;">
+                        <option value="">Select Car Type</option>
+                        <option value="buy">Buy</option>
+                        <option value="rent">Rent</option>
+                    </select>
+                    <select name="model" id="carModel" required style="width: 100%;">
+                        <option value="">Select Car Model</option>
+                        <option value="economy">Economy</option>
+                        <option value="midsize">Midsize</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="economy">Economy</option>
+                        <option value="midsize">Midsize</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="economy">Economy</option>
+                        <option value="midsize">Midsize</option>
+                        <option value="luxury">Luxury</option> 
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="hatchback">Hatchback</option>
+                    </select>
+                    <textarea  name="address"  id="address" placeholder="Shipping Address" required></textarea>
+                </div>
+                <div class="step" id="step3">
+                    <h2>Payment</h2>
+                    <div id="paymentOptions">
+                        <button type="button" class="payment-option" data-option="upi"><img src="images/payment/upi-logo-png.png" width="100%"  alt=""></button>
+                        <button type="button" class="payment-option" data-option="phonepe"><img src="images/payment/phone_pe_icon.png" width="100%"  alt=""></button>
+                        <button type="button" class="payment-option" data-option="paytm"><img src="images/payment/paytm-icon.png" width="100%"  alt=""></button>
+                        <button type="button" class="payment-option" data-option="card"><img src="images/payment/card.webp" width="100%"  alt=""></button>
+                    </div>
+                    <div id="paymentDetails"></div>
+                </div>
+                <div class="button-group">
+                    <button  type="button" id="prevBtn">Previous</button>
+                    <button type="button" id="nextBtn">Next</button>
+                    <button type="submit" name="submit" id="submitBtn" style="display: none;">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="overlay" class="overlay">
+        <div class="popup">
+            <h2>Payment Successful!</h2>
+            <p>Your payment has been processed successfully.</p>
+            <button id="downloadInvoice">Download Invoice</button>
+            <button id="closePopup">Close</button>
+        </div>
+    </div>
+    <script>
+          document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('registrationForm');
+    const steps = document.querySelectorAll('.step');
+    const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const submitBtn = document.getElementById('submitBtn');
+    const progressBar = document.querySelector('.progress');
+    const paymentOptions = document.querySelectorAll('.payment-option');
+    const paymentDetails = document.getElementById('paymentDetails');
+    const overlay = document.getElementById('overlay');
+    const closePopup = document.getElementById('closePopup');
+    const downloadInvoice = document.getElementById('downloadInvoice');
+
+    let currentStep = 0;
+
+    function showStep(step) {
+        steps[currentStep].classList.remove('active');
+        steps[step].classList.add('active');
+        currentStep = step;
+
+        if (currentStep === 0) {
+            prevBtn.style.display = 'none';
+        } else {
+            prevBtn.style.display = 'inline-block';
+        }
+
+        if (currentStep === steps.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'inline-block';
+        } else {
+            nextBtn.style.display = 'inline-block';
+            submitBtn.style.display = 'none';
+        }
+
+        updateProgressBar();
+    }
+
+    function updateProgressBar() {
+        const progress = ((currentStep + 1) / steps.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+
+    nextBtn.addEventListener('click', () => {
+        if (currentStep < steps.length - 1) {
+            showStep(currentStep + 1);
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentStep > 0) {
+            showStep(currentStep - 1);
+        }
+    });
+
+    paymentOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const paymentType = option.dataset.option;
+            let details = '';
+
+            switch (paymentType) {
+                case 'upi':
+                    details = `
+                        <input type="text" placeholder="Enter UPI ID" required>
+                        <img src="/images/upi.png? height=200&width=200" alt="UPI QR Code" style="width:200px;height:200px;">
+                    `;
+                    break;
+                case 'phonepe':
+                    details = `
+                        <input type="tel" placeholder="Enter Mobile Number" required>
+                        <img src="/images/phonepe.jpg? height=200&width=200" alt="PhonePe QR Code" style="width:200px;height:200px;">
+                    `;
+                    break;
+                case 'paytm':
+                    details = `
+                        <input type="tel" placeholder="Enter Mobile Number" required>
+                        <img src="https://www.google.com/imgres?q=paytm&imgurl=https%3A%2F%2Fpaytmblogcdn.paytm.com%2Fwp-content%2Fuploads%2F2023%2F03%2FPaytm-New-Technology-Platform.png&imgrefurl=https%3A%2F%2Fpaytm.com%2Fblog%2Finvestor-relations%2Fpaytm-launches-its-upgraded-payments-platform-powered-by-100-indigenous-technology-a-shining-example-of-make-in-india%2F&docid=sbvs6PdK6ctC0M&tbnid=rk39MPsPVlT_JM&vet=12ahUKEwjE1OqMsKGKAxXwzTgGHZ48KBEQM3oECGoQAA..i&w=1600&h=1000&hcb=2&ved=2ahUKEwjE1OqMsKGKAxXwzTgGHZ48KBEQM3oECGoQAA? height=200&width=200" alt="Paytm QR Code" style="width:200px;height:200px; right: 30px;">
+                    `;
+                    break;
+                case 'card':
+                    details = `
+                        <input type="text" placeholder="Card Number" required>
+                        <input type="text" placeholder="Name on Card" required>
+                        <input type="text" placeholder="Expiry Date" required>
+                        <input type="text" placeholder="CVV" required>
+                    `;
+                    break;
+            }
+
+            paymentDetails.innerHTML = details;
+        });
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        overlay.style.display = 'flex';
+    });
+
+    closePopup.addEventListener('click', () => {
+        overlay.style.display = 'none';
+    });
+
+    downloadInvoice.addEventListener('click', () => {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        
+        doc.text("Invoice", 10, 10);
+        doc.text("Thank you for your purchase!", 10, 20);
+        doc.text("Car Type: " + document.getElementById('carType').value, 10, 30);
+        doc.text("Car Model: " + document.getElementById('carModel').value, 10, 40);
+        doc.text("Amount: $1000", 10, 50);
+        doc.text("Date: " + new Date().toLocaleDateString(), 10, 60);
+        
+        doc.save("invoice.pdf");
+    });
+
+    showStep(currentStep);
+});
+    </script>
+</body>
+</html>
